@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="YNP 2026">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1c3a20">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Yellowstone &amp; Grand Tetons — Family Trip 2026</title>
+<style>
+/* ── TOKENS ── */
+:root {
+  --forest:    #1c3a20;
+  --forest2:   #2a5030;
+  --bark:      #5c3d1e;
+  --bark2:     #7a5230;
+  --stone:     #8a8278;
+  --stone2:    #b8b0a4;
+  --cream:     #f4ede0;
+  --parchment: #fdf7ee;
+  --sky:       #3a7fb5;
+  --sky2:      #5a9fd5;
+  --geyser:    #48a89c;
+  --ember:     #c8501a;
+  --gold:      #c4862a;
+  --gold2:     #e0a840;
+  --serif:     'Cormorant Garamond', Georgia, serif;
+  --sans:      'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: #2a2018;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+#hero {
+  position: relative;
+  width: 100%;
+  min-height: 480px;
+  overflow: hidden;
+  background: var(--forest);
+}
+
+/* Real photo of the Grand Tetons via Wikimedia Commons */
+#hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  opacity: .75;
+}
+
+/* Multi-layer overlay for depth and text legibility */
+#hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(10,22,12,.45) 0%,
+      rgba(10,22,12,.15) 40%,
+      rgba(10,22,12,.72) 75%,
+      rgba(10,22,12,.92) 100%),
+    linear-gradient(to right,
+      rgba(10,22,12,.3) 0%,
+      transparent 60%);
+}
+
+#hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 480px;
+  padding: 2.5rem 1.5rem 3rem;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: .68rem;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: rise .7s .2s ease both;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 8vw, 6.5rem);
+  line-height: .98;
+  color: #fff;
+  text-shadow: 0 4px 40px rgba(0,0,0,.5);
+  opacity: 0;
+  animation: rise .7s .35s ease both;
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold2);
+  display: block;
+  font-size: .75em;
+}
+
+.hero-sub {
+  margin-top: 1rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: rgba(255,255,255,.65);
+  letter-spacing: .04em;
+  opacity: 0;
+  animation: rise .7s .5s ease both;
+}
+
+.hero-pill {
+  margin-top: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .9rem;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 100px;
+  padding: .55rem 1.6rem;
+  font-family: var(--sans);
+  font-size: .82rem;
+  font-weight: 500;
+  color: rgba(255,255,255,.88);
+  letter-spacing: .06em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255,255,255,.08);
+  opacity: 0;
+  animation: rise .7s .65s ease both;
+}
+.hero-pill .sep { color: var(--gold2); font-size: .9rem; }
+
+@keyframes rise {
+  from { opacity:0; transform: translateY(16px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════
+   INSTALL BANNER
+══════════════════════════════ */
+#install-bar {
+  display: none;
+  background: var(--forest);
+  border-bottom: 2px solid var(--gold);
+  padding: .7rem 1rem .7rem 1.1rem;
+  font-family: var(--sans);
+  font-size: .78rem;
+  color: rgba(255,255,255,.85);
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  line-height: 1.45;
+}
+#install-bar .ib-icon { font-size: 1.1rem; flex-shrink: 0; }
+#install-bar strong { color: var(--gold2); }
+#install-bar .ib-close {
+  margin-left: auto; flex-shrink: 0;
+  background: none; border: none;
+  color: rgba(255,255,255,.4); font-size: 1rem;
+  cursor: pointer; padding: .15rem .3rem;
+}
+
+/* ══════════════════════════════
+   DAY NAV
+══════════════════════════════ */
+#nav {
+  position: sticky;
+  top: 0; z-index: 100;
+  background: var(--forest);
+  border-bottom: 2px solid var(--gold);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+#nav::-webkit-scrollbar { display: none; }
+#nav-track {
+  display: flex;
+  min-width: max-content;
+  padding: 0 .5rem;
+}
+.nb {
+  background: none; border: none; cursor: pointer;
+  padding: .72rem .95rem;
+  display: flex; flex-direction: column; align-items: center; gap: .05rem;
+  border-bottom: 2.5px solid transparent;
+  margin-bottom: -2px;
+  transition: all .18s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.nb .nd {
+  font-family: var(--sans); font-weight: 600; font-size: .58rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold2); opacity: .7;
+}
+.nb .nl {
+  font-family: var(--sans); font-weight: 400; font-size: .72rem;
+  color: rgba(255,255,255,.5); letter-spacing: .03em;
+}
+.nb .nm {
+  font-family: var(--sans); font-weight: 500; font-size: .62rem;
+  color: rgba(255,255,255,.35);
+}
+.nb.on {
+  border-bottom-color: var(--gold2);
+  background: rgba(196,134,42,.1);
+}
+.nb.on .nl { color: var(--gold2); }
+.nb.on .nd { opacity: 1; }
+
+/* ══════════════════════════════
+   MAIN CONTENT
+══════════════════════════════ */
+#main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1rem 6rem;
+}
+
+.panel { display: none; }
+.panel.on { display: block; }
+
+/* ── Day banner ── */
+.day-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1.5px solid var(--stone2);
+}
+.day-num {
+  background: var(--forest);
+  color: var(--gold2);
+  border-radius: 10px;
+  padding: .7rem 1rem;
+  text-align: center;
+  min-width: 66px;
+  flex-shrink: 0;
+}
+.day-num .dn { font-family: var(--serif); font-size: 2.1rem; font-weight: 700; line-height: 1; display: block; }
+.day-num .dl { font-size: .55rem; letter-spacing: .15em; text-transform: uppercase; color: var(--stone2); display: block; margin-top: .1rem; }
+.day-meta h2 { font-family: var(--serif); font-size: clamp(1.3rem, 4vw, 1.9rem); font-weight: 700; color: var(--forest); line-height: 1.15; }
+.day-meta .dm-date { font-size: .82rem; color: var(--stone); margin-top: .2rem; letter-spacing: .03em; }
+.day-badge {
+  display: inline-block; margin-top: .35rem;
+  background: var(--gold); color: #fff;
+  font-size: .6rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; padding: .16rem .65rem; border-radius: 100px;
+}
+
+/* ── Section header ── */
+.sh {
+  display: flex; align-items: center; gap: .6rem;
+  font-family: var(--sans); font-weight: 600; font-size: .66rem;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--bark);
+  margin-bottom: .75rem;
+}
+.sh::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--stone2), transparent); }
+
+/* ── Map tap button ── */
+.map-btn {
+  display: flex; align-items: center; gap: .85rem;
+  background: var(--parchment);
+  border: 1.5px solid var(--stone2);
+  border-radius: 12px;
+  padding: .95rem 1.1rem;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: border-color .15s, box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.map-btn:active { background: #ede6d8; }
+.map-icon { font-size: 1.6rem; flex-shrink: 0; }
+.map-text strong { display: block; font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--forest); }
+.map-text span { font-size: .76rem; color: var(--stone); }
+.map-chevron { margin-left: auto; color: var(--sky); font-size: 1rem; flex-shrink: 0; }
+
+/* ── Lodging card ── */
+.lodge {
+  background: linear-gradient(135deg, var(--forest) 0%, var(--forest2) 100%);
+  color: #fff; border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  display: grid; grid-template-columns: 40px 1fr; gap: .85rem; align-items: start;
+}
+.lodge-icon {
+  width: 40px; height: 40px; background: rgba(255,255,255,.12);
+  border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.lodge-town { font-size: .7rem; color: var(--gold2); letter-spacing: .07em; text-transform: uppercase; margin-bottom: .18rem; }
+.lodge h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; }
+.tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .45rem; }
+.tag {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 100px; padding: .15rem .6rem;
+  font-size: .64rem; color: rgba(255,255,255,.78); letter-spacing: .03em;
+}
+.tag.res { background: rgba(196,134,42,.22); border-color: var(--gold); color: var(--gold2); }
+.tag.warn { background: rgba(200,80,26,.2); border-color: var(--ember); color: #f0b090; }
+
+/* ── Meals ── */
+.meals { margin-bottom: 1.4rem; }
+.meal-row {
+  display: flex; align-items: flex-start; gap: .7rem;
+  background: var(--parchment); border: 1px solid rgba(0,0,0,.07);
+  border-left: 3px solid var(--bark); border-radius: 9px;
+  padding: .62rem .9rem; margin-bottom: .42rem;
+  font-size: .84rem; line-height: 1.45;
+}
+.meal-ico { flex-shrink: 0; font-size: .95rem; margin-top: .05rem; }
+.meal-label { font-weight: 600; font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; color: var(--bark); display: block; margin-bottom: .08rem; }
+
+/* ── Activity grid ── */
+.act-section { margin-bottom: 1.4rem; }
+.act-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: .55rem;
+}
+.act-card {
+  background: var(--parchment);
+  border: 1px solid rgba(0,0,0,.07);
+  border-left: 3px solid var(--gold);
+  border-radius: 9px;
+  padding: .68rem .9rem;
+  font-size: .83rem; line-height: 1.45;
+}
+.act-card.af { border-left-color: var(--sky); }
+.act-card.pm { border-left-color: var(--ember); }
+.act-card.note { border-left-color: var(--geyser); font-style: italic; font-size: .8rem; color: #444; }
+
+/* ── Special notes ── */
+.special {
+  background: rgba(72,168,156,.08);
+  border: 1px solid rgba(72,168,156,.3);
+  border-left: 4px solid var(--geyser);
+  border-radius: 10px;
+  padding: .85rem 1rem;
+  margin-bottom: 1.2rem;
+}
+.special-title {
+  font-family: var(--sans); font-weight: 600; font-size: .64rem;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--geyser); margin-bottom: .45rem;
+}
+.special-item {
+  font-size: .83rem; line-height: 1.45; margin-bottom: .22rem;
+  display: flex; align-items: flex-start; gap: .45rem;
+}
+.special-item::before { content: '★'; color: var(--geyser); flex-shrink: 0; font-size: .6rem; margin-top: .18rem; }
+
+/* ── Todo ── */
+.todo {
+  background: rgba(196,134,42,.08);
+  border: 1px dashed var(--gold);
+  border-radius: 10px;
+  padding: .85rem 1rem;
+  margin-top: .5rem;
+}
+.todo-title {
+  font-family: var(--sans); font-weight: 600; font-size: .64rem;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--bark); margin-bottom: .4rem;
+}
+.todo ul { padding-left: 1rem; }
+.todo li { font-size: .83rem; margin-bottom: .22rem; line-height: 1.4; }
+
+/* ── Footer ── */
+footer {
+  text-align: center; padding: 2rem 1rem;
+  font-size: .72rem; color: var(--stone); letter-spacing: .08em;
+}
+
+@media (max-width: 440px) {
+  .act-grid { grid-template-columns: 1fr; }
+  .day-banner { gap: .85rem; }
+  .day-num { min-width: 58px; padding: .6rem .8rem; }
+  .day-num .dn { font-size: 1.75rem; }
+  #hero { min-height: 400px; }
+  #hero-content { min-height: 400px; padding: 2rem 1.2rem 2.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <img
+    id="hero-img"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Teton_Range_from_Signal_Mountain_%28cropped%29.jpg/1280px-Teton_Range_from_Signal_Mountain_%28cropped%29.jpg"
+    alt="Grand Teton mountain range"
+    loading="eager"
+  >
+  <div id="hero-overlay"></div>
+  <div id="hero-content">
+    <p class="hero-eyebrow">&#x2605; Family Adventure &#x2605;</p>
+    <h1 class="hero-title">
+      Yellowstone
+      <em>&amp; Grand Tetons</em>
+    </h1>
+    <p class="hero-sub">The Family Trip of a Lifetime</p>
+    <div class="hero-pill">
+      <span>July 24</span>
+      <span class="sep">&#x2726;</span>
+      <span>August 2, 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INSTALL BANNER ══ -->
+<div id="install-bar">
+  <span class="ib-icon">📲</span>
+  <span id="ib-msg">Tap Share then "Add to Home Screen" to save as an app.</span>
+  <button class="ib-close" onclick="document.getElementById('install-bar').style.display='none'">✕</button>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav" role="navigation" aria-label="Trip days">
+  <div id="nav-track"></div>
+</nav>
+
+<!-- ══ CONTENT ══ -->
+<main id="main"></main>
+
+<footer>Made with love &bull; Yellowstone &amp; Grand Tetons &bull; Summer 2026</footer>
+
+<script>
+/* ════════════════════════════════════════
+   INSTALL BANNER — detect iOS vs Android
+════════════════════════════════════════ */
+(function () {
+  var ua = navigator.userAgent || '';
+  var isIos = /iphone|ipad|ipod/i.test(ua);
+  var isAndroid = /android/i.test(ua);
+  var isStandalone = window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: standalone)').matches;
+  var bar = document.getElementById('install-bar');
+  var msg = document.getElementById('ib-msg');
+  if (isStandalone) { bar.style.display = 'none'; return; }
+  if (isIos) {
+    msg.innerHTML = '<strong>iPhone tip:</strong> Tap the <strong>Share &#x2B06;</strong> button at the bottom of Safari → <strong>"Add to Home Screen"</strong> to save as an app icon.';
+    bar.style.display = 'flex';
+  } else if (isAndroid) {
+    msg.innerHTML = '<strong>Android tip:</strong> Tap the <strong>&#8942; menu</strong> in Chrome → <strong>"Add to Home screen"</strong>.';
+    bar.style.display = 'flex';
+  }
+})();
+
+/* ════════════════════════════════════════
+   TRIP DATA
+   All data transcribed from spreadsheet.
+   Rows: 1=Day, 2=Weekday, 3=Date,
+   6=Flights, 8=Hotel Town, 9=Hotel,
+   10=Reservation, 11=Rooms, 12=Address,
+   13=Payment (excluded), 15=Cancellation,
+   19-23=AM, 27-33=Afternoon,
+   35-37=PM/Dinner, 39-41=Special Notes,
+   44-46=To Do
+════════════════════════════════════════ */
+var days = [
+
+  /* ── DAY 1: Friday July 24 ── */
+  {
+    num: 1, day: 'Friday', date: 'July 24',
+    title: 'Arrival Day', region: 'Travel',
+    mapLabel: 'Jackson Hole Airport, WY',
+    mapApple: 'https://maps.apple.com/?q=Jackson+Hole+Airport&ll=43.6074,-110.7380',
+    mapGoogle: 'https://maps.google.com/?q=Jackson+Hole+Airport+Wyoming',
+    hotel: {
+      icon: '🏠', name: 'Jackson Air BnB', town: 'Jackson, WY',
+      rooms: '2 Bedroom Suite', address: '3800 West Broadway',
+      res: 'HMSTXYZABN', cancel: 'Cancel by July 19'
+    },
+    breakfast: '', lunch: '', dinner: '',
+    am: ['✈️ Arrive 8:00 PM — Jackson Hole Airport', '🧳 Pack and get ready for a great trip!'],
+    af: ['✈️ Flights'], pm: [],
+    special: [],
+    todo: ['Book dinners where needed', 'Book any tours / events']
+  },
+
+  /* ── DAY 2: Saturday July 25 ── */
+  {
+    num: 2, day: 'Saturday', date: 'July 25',
+    title: 'Exploring Jackson', region: 'Jackson, WY',
+    mapLabel: 'Jackson, Wyoming',
+    mapApple: 'https://maps.apple.com/?q=Jackson+Wyoming&ll=43.4799,-110.7624',
+    mapGoogle: 'https://maps.google.com/?q=Jackson+Wyoming',
+    hotel: {
+      icon: '🏠', name: 'Jackson Air BnB', town: 'Jackson, WY',
+      rooms: '2 Bedroom Suite', address: '3800 West Broadway',
+      res: 'HMSTXYZABN', cancel: 'Cancel by July 19'
+    },
+    breakfast: 'Silver Dollar Grill — or Persephone / Bunnery (bakeries)',
+    lunch: 'Open',
+    dinner: 'Liberty Burger',
+    am: ['🤠 Cowboy hat store', '🏙️ Explore Jackson'],
+    af: [
+      '🦌 Elk Refuge Center',
+      '🚡 Gondola ride to top of Snow King Mountain',
+      '🛷 Ride Alpine Slide down Snow King',
+      '🎨 National Museum of Wildlife Art'
+    ],
+    pm: ['🍺 Million Dollar Cowboy Bar'],
+    special: [
+      'Reserve and pick up bear spray',
+      'Get groceries @ Albertson\'s',
+      'Pick up sandwiches for tomorrow @ Creekside Market'
+    ],
+    todo: []
+  },
+
+  /* ── DAY 3: Sunday July 26 ── */
+  {
+    num: 3, day: 'Sunday', date: 'July 26',
+    title: 'Tetons Arrival', region: 'Grand Tetons',
+    mapLabel: 'Teton Village — Grand Teton NP',
+    mapApple: 'https://maps.apple.com/?q=Teton+Village+Wyoming&ll=43.5873,-110.8276',
+    mapGoogle: 'https://maps.google.com/?q=Teton+Village+Wyoming',
+    hotel: {
+      icon: '⛺', name: 'Signal Mountain Lodge', town: 'Teton Village, WY',
+      rooms: '2 Rooms', address: 'Signal Mountain Lodge, GTNP',
+      res: '80006C35E / 86E3PA / 86E3PB', cancel: '7 days prior — 100%'
+    },
+    breakfast: 'Nora Fish Creek',
+    lunch: 'Sandwiches picked up last night',
+    dinner: 'Leeks Marina and Pizza',
+    am: ['🚗 Travel to Tetons', '🚡 Tram Ride at Teton Village'],
+    af: [
+      '🏛️ Craig Thomas Discovery Center',
+      '⛪ Church of Transfiguration',
+      '🚤 Boat shuttle / Hike along Jenny Lake'
+    ],
+    pm: [],
+    special: [
+      'Early to bed — big adventure day tomorrow!',
+      'Sign waivers for float trip tonight'
+    ],
+    todo: []
+  },
+
+  /* ── DAY 4: Monday July 27 ── */
+  {
+    num: 4, day: 'Monday', date: 'July 27',
+    title: 'Tetons Adventure', region: 'Grand Tetons',
+    mapLabel: 'Grand Teton National Park, WY',
+    mapApple: 'https://maps.apple.com/?q=Grand+Teton+National+Park&ll=43.7904,-110.6818',
+    mapGoogle: 'https://maps.google.com/?q=Grand+Teton+National+Park',
+    hotel: {
+      icon: '⛺', name: 'Signal Mountain Lodge', town: 'Teton Village, WY',
+      rooms: '2 Rooms', address: 'Signal Mountain Lodge, GTNP',
+      res: '80006C35E / 86E3PA / 86E3PB', cancel: '7 days prior — 100%'
+    },
+    breakfast: 'Up before sunrise — grab something quick',
+    lunch: "Dornan's Chuck Wagon",
+    dinner: 'Check what\'s available at Signal Mountain Lodge',
+    am: [
+      '🌅 Up Before Sunrise — Oxbow Bend',
+      '🚣 8:15 AM — 10-Mile Float Trip (Conf: 253BE0, Triangle X Float Trips) — Meet at Moose Junction, arrive 15 mins early',
+      '🏚️ Mormon Row Barns'
+    ],
+    af: [
+      '🥾 Hiking as desired (see advisor recommendations)',
+      '🏔️ Togwotee Pass for Views'
+    ],
+    pm: [],
+    special: [
+      'Go outside and look at the stars tonight — skies are incredible out here'
+    ],
+    todo: []
+  },
+
+  /* ── DAY 5: Tuesday July 28 ── */
+  {
+    num: 5, day: 'Tuesday', date: 'July 28',
+    title: 'Into Yellowstone', region: 'Yellowstone NP',
+    mapLabel: 'West Thumb & Grant Village — Yellowstone',
+    mapApple: 'https://maps.apple.com/?q=West+Thumb+Geyser+Basin+Yellowstone&ll=44.4163,-110.5720',
+    mapGoogle: 'https://maps.google.com/?q=West+Thumb+Geyser+Basin+Yellowstone',
+    hotel: {
+      icon: '🏕️', name: 'Grant Village', town: 'Near Old Faithful',
+      rooms: '2 Rooms', address: 'Grant Village, Yellowstone NP',
+      res: 'Reservation #20394932', cancel: 'Cancel by July 21'
+    },
+    breakfast: 'West Thumb Geyser Basin area',
+    lunch: 'General Store or Yellowstone Hotel',
+    dinner: 'Obsidian Lounge (first come, first served)',
+    am: [
+      '🌊 West Thumb Geyser Basin',
+      '🚣 Explore shore of Yellowstone Lake',
+      '🚗 Drive to Old Faithful'
+    ],
+    af: [
+      '🥾 Storm Point Hike (3-mile round trip, easy)',
+      '🚗 Drive to Old Faithful area'
+    ],
+    pm: [],
+    special: [
+      'Once phones start working on way to Old Faithful call the geyser prediction line: 307-344-2751'
+    ],
+    todo: []
+  },
+
+  /* ── DAY 6: Wednesday July 29 ── */
+  {
+    num: 6, day: 'Wednesday', date: 'July 29',
+    title: 'Old Faithful Day', region: 'Old Faithful',
+    mapLabel: 'Old Faithful — Yellowstone NP',
+    mapApple: 'https://maps.apple.com/?q=Old+Faithful+Geyser+Yellowstone&ll=44.4605,-110.8281',
+    mapGoogle: 'https://maps.google.com/?q=Old+Faithful+Geyser+Yellowstone',
+    hotel: {
+      icon: '🌋', name: 'Old Faithful Lodge', town: 'Old Faithful, Yellowstone',
+      rooms: '3 Rooms', address: 'Old Faithful Lodge, Yellowstone NP',
+      res: 'Reservation #20395937', cancel: 'Cancel by July 21'
+    },
+    breakfast: 'Find somewhere near Old Faithful',
+    lunch: '',
+    dinner: 'Old Faithful Inn — get reservation link 30 days out; otherwise find alternatives',
+    am: [
+      '🌋 Old Faithful Geyser — Visitor Center',
+      '🎬 Watch "The Bird and The Tree" film',
+      '🗺️ Grab trail map — check which geysers are scheduled'
+    ],
+    af: [
+      '🌋 More Old Faithful area exploring',
+      '🥾 Old Faithful area hikes'
+    ],
+    pm: [],
+    special: [
+      'Go outside at night — the stars, geyser basin, and Old Faithful are beautiful after dark'
+    ],
+    todo: []
+  },
+
+  /* ── DAY 7: Thursday July 30 ── */
+  {
+    num: 7, day: 'Thursday', date: 'July 30',
+    title: 'Mammoth Hot Springs', region: 'Mammoth Springs',
+    mapLabel: 'Mammoth Hot Springs — Yellowstone',
+    mapApple: 'https://maps.apple.com/?q=Mammoth+Hot+Springs+Yellowstone&ll=44.9765,-110.6985',
+    mapGoogle: 'https://maps.google.com/?q=Mammoth+Hot+Springs+Yellowstone',
+    hotel: {
+      icon: '🏡', name: 'Buffalo Trace Retreat (VRBO)', town: 'Gardiner, MT',
+      rooms: '3 Bed / 3 Bath', address: '7 Jardine Rd, Gardiner, MT',
+      res: 'HA-4VH5XY', cancel: ''
+    },
+    breakfast: 'Go to geyser before breakfast / eat wherever',
+    lunch: '',
+    dinner: 'Wonderland Café (first come, first served)',
+    am: [
+      '🌊 Visit geyser before breakfast',
+      '🖤 Black Sand Basin'
+    ],
+    af: [
+      '🚗 Make way to Mammoth Hot Springs — many stops along the way (see planner notes)',
+      '♨️ Mammoth Hot Springs exploration'
+    ],
+    pm: ['🛏️ Go to bed early'],
+    special: ['Go to bed early — big day ahead'],
+    todo: []
+  },
+
+  /* ── DAY 8: Friday July 31 ── */
+  {
+    num: 8, day: 'Friday', date: 'July 31',
+    title: 'Canyon of Yellowstone', region: 'Canyon Area',
+    mapLabel: 'Grand Canyon of the Yellowstone',
+    mapApple: 'https://maps.apple.com/?q=Grand+Canyon+of+the+Yellowstone&ll=44.7180,-110.4960',
+    mapGoogle: 'https://maps.google.com/?q=Grand+Canyon+of+the+Yellowstone',
+    hotel: {
+      icon: '🏡', name: 'Buffalo Trace Retreat (VRBO)', town: 'Gardiner, MT',
+      rooms: '3 Bed / 3 Bath', address: '7 Jardine Rd, Gardiner, MT',
+      res: 'HA-4VH5XY', cancel: ''
+    },
+    breakfast: 'Eat wherever',
+    lunch: '',
+    dinner: 'Canyon Village Cafeteria — or The Yellowstone Mine Restaurant in Gardiner',
+    am: [
+      '🏞️ Grand Canyon of Yellowstone',
+      '🚗 Drive to Mammoth → Tower Junction',
+      '⚡ Calcite Springs'
+    ],
+    af: [
+      '🔭 Canyon exploration and waterfalls'
+    ],
+    pm: [],
+    special: [],
+    todo: []
+  },
+
+  /* ── DAY 9: Saturday August 1 ── */
+  {
+    num: 9, day: 'Saturday', date: 'August 1',
+    title: 'Wildlife Day', region: 'Gardiner, MT',
+    mapLabel: 'Gardiner, MT — Yellowstone Northern Range',
+    mapApple: 'https://maps.apple.com/?q=Gardiner+Montana&ll=45.0300,-110.7077',
+    mapGoogle: 'https://maps.google.com/?q=Gardiner+Montana',
+    hotel: {
+      icon: '🏡', name: 'Buffalo Trace Retreat (VRBO)', town: 'Gardiner, MT',
+      rooms: '3 Bed / 3 Bath', address: '7 Jardine Rd, Gardiner, MT',
+      res: 'HA-4VH5XY', cancel: ''
+    },
+    breakfast: '',
+    lunch: '',
+    dinner: 'Food Trucks',
+    am: [
+      '🦬 Wildlife Watching Tours (Booking #337763717)',
+      '🐺 Yellowstone Wildlife Profiles'
+    ],
+    af: [
+      '🦬 Wildlife Watching Tours continued',
+      '♨️ Yellowstone Hot Spring Soak'
+    ],
+    pm: ['⏰ 5:00 AM departure — Chamber of Commerce meet-up'],
+    special: [],
+    todo: []
+  },
+
+  /* ── DAY 10: Sunday August 2 ── */
+  {
+    num: 10, day: 'Sunday', date: 'August 2',
+    title: 'Fly Home', region: 'Bozeman, MT',
+    mapLabel: 'Bozeman Yellowstone International Airport',
+    mapApple: 'https://maps.apple.com/?q=Bozeman+Yellowstone+Airport&ll=45.7775,-111.1530',
+    mapGoogle: 'https://maps.google.com/?q=Bozeman+Yellowstone+Airport',
+    hotel: {
+      icon: '✈️', name: 'Drive to Bozeman Airport', town: 'Bozeman, MT',
+      rooms: '', address: '', res: '', cancel: ''
+    },
+    breakfast: '', lunch: '', dinner: '',
+    am: [
+      '🧳 Pack up',
+      '↩️ Return bear spray',
+      '🚗 Drive to Bozeman Airport',
+      '✈️ Fly home — what an adventure!'
+    ],
+    af: [], pm: [],
+    special: [],
+    todo: []
+  }
+];
+
+/* ════════════════════════
+   BUILD NAV
+════════════════════════ */
+function buildNav() {
+  var track = document.getElementById('nav-track');
+  var months = { 'July': 'Jul', 'August': 'Aug' };
+  days.forEach(function (d, i) {
+    var btn = document.createElement('button');
+    btn.className = 'nb' + (i === 0 ? ' on' : '');
+    btn.setAttribute('aria-label', 'Day ' + d.num + ': ' + d.title);
+    var parts = d.date.split(' ');
+    var shortDate = (months[parts[0]] || parts[0]) + ' ' + parts[1];
+    btn.innerHTML =
+      '<span class="nd">Day ' + d.num + '</span>' +
+      '<span class="nl">' + d.day.slice(0, 3) + ' ' + shortDate + '</span>';
+    btn.onclick = (function (idx) { return function () { show(idx); }; })(i);
+    track.appendChild(btn);
+  });
+}
+
+/* ════════════════════════
+   BUILD PANELS
+════════════════════════ */
+function buildPanels() {
+  var main = document.getElementById('main');
+  var isIos = /iphone|ipad|ipod/i.test(navigator.userAgent || '');
+
+  days.forEach(function (d, i) {
+    var h = d.hotel;
+    var el = document.createElement('div');
+    el.className = 'panel' + (i === 0 ? ' on' : '');
+    el.id = 'p' + i;
+
+    /* Map button */
+    var mhref = isIos ? d.mapApple : d.mapGoogle;
+    var mapH =
+      '<a class="map-btn" href="' + mhref + '" target="_blank" rel="noopener">' +
+        '<span class="map-icon">🗺️</span>' +
+        '<span class="map-text"><strong>' + d.mapLabel + '</strong>' +
+          '<span>Tap to open in Maps ›</span></span>' +
+        '<span class="map-chevron">›</span>' +
+      '</a>';
+
+    /* Lodging */
+    var lodgeH =
+      '<div class="lodge">' +
+        '<div class="lodge-icon">' + h.icon + '</div>' +
+        '<div>' +
+          '<div class="lodge-town">' + h.town + '</div>' +
+          '<h3>' + h.name + '</h3>' +
+          '<div class="tags">' +
+            (h.rooms   ? '<span class="tag">' + h.rooms + '</span>' : '') +
+            (h.address ? '<span class="tag">📍 ' + h.address + '</span>' : '') +
+            (h.res     ? '<span class="tag res">' + h.res + '</span>' : '') +
+            (h.cancel  ? '<span class="tag warn">⚠️ ' + h.cancel + '</span>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    /* Meals */
+    function mrow(ico, lbl, txt) {
+      if (!txt) return '';
+      return '<div class="meal-row"><span class="meal-ico">' + ico + '</span>' +
+        '<div><span class="meal-label">' + lbl + '</span>' + txt + '</div></div>';
+    }
+    var hasMeals = d.breakfast || d.lunch || d.dinner;
+    var mealsH = '';
+    if (hasMeals) {
+      mealsH = '<div class="act-section meals"><div class="sh">🍽️ Meals</div>' +
+        mrow('☕', 'Breakfast', d.breakfast) +
+        mrow('🥗', 'Lunch', d.lunch) +
+        mrow('🍷', 'Dinner', d.dinner) +
+        '</div>';
+    }
+
+    /* Activities */
+    function actBlock(ico, label, items, cls) {
+      if (!items.length) return '';
+      var cards = items.map(function (a) {
+        return '<div class="act-card ' + cls + '">' + a + '</div>';
+      }).join('');
+      return '<div class="act-section"><div class="sh">' + ico + ' ' + label + '</div>' +
+        '<div class="act-grid">' + cards + '</div></div>';
+    }
+
+    /* Special notes */
+    var specH = '';
+    if (d.special.length) {
+      specH = '<div class="special"><div class="special-title">💡 Special Notes</div>' +
+        d.special.map(function (s) {
+          return '<div class="special-item"><span>' + s + '</span></div>';
+        }).join('') + '</div>';
+    }
+
+    /* Todo */
+    var todoH = '';
+    if (d.todo.length) {
+      todoH = '<div class="todo"><div class="todo-title">📌 To Do</div><ul>' +
+        d.todo.map(function (t) { return '<li>' + t + '</li>'; }).join('') +
+        '</ul></div>';
+    }
+
+    el.innerHTML =
+      /* Day header */
+      '<div class="day-banner">' +
+        '<div class="day-num">' +
+          '<span class="dn">' + d.num + '</span>' +
+          '<span class="dl">Day</span>' +
+        '</div>' +
+        '<div class="day-meta">' +
+          '<h2>' + d.title + '</h2>' +
+          '<div class="dm-date">' + d.day + ', ' + d.date + '</div>' +
+          (d.region ? '<span class="day-badge">' + d.region + '</span>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="sh">📍 Location</div>' +
+      mapH +
+      '<div class="sh">🏨 Lodging</div>' +
+      lodgeH +
+      actBlock('🌄', 'Morning', d.am, '') +
+      mealsH +
+      actBlock('☀️', 'Afternoon', d.af, 'af') +
+      actBlock('🌙', 'Evening', d.pm, 'pm') +
+      specH +
+      todoH;
+
+    main.appendChild(el);
+  });
+}
+
+/* ════════════════════════
+   SHOW DAY
+════════════════════════ */
+function show(i) {
+  document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('on'); });
+  document.querySelectorAll('.nb').forEach(function (b) { b.classList.remove('on'); });
+  document.getElementById('p' + i).classList.add('on');
+  document.querySelectorAll('.nb')[i].classList.add('on');
+  document.querySelectorAll('.nb')[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  var navTop = document.getElementById('nav').getBoundingClientRect().top + window.pageYOffset;
+  window.scrollTo({ top: navTop, behavior: 'smooth' });
+}
+
+buildNav();
+buildPanels();
+</script>
+</body>
+</html>
